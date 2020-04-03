@@ -7,6 +7,10 @@ app.secret_key = 'replace later!'
 def index():
     return render_template('index.html')
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
