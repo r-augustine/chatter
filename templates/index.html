@@ -4,4 +4,13 @@
 {% block content %}
     <h1>Get Started</h1>
     <p>This is the index page... welcome {{ user }}</p>
+    <div id="display-messages-section"></div>
+    <div class="input-area">
+        <input type="text" placeholder="Type here..." autocomplete="off" id="user-message">
+        <button type="button" id="send-message">Send</button>
+    </div>
+
+    <script type="text/javascript">
+        const username = '{{ user }}';
+    </script>
 {% endblock content %}
