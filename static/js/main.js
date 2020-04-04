@@ -13,11 +13,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     socket.on('message', data => {
         console.log(`Message received ${data.message}`);
-        const p = document.createElement('p');
+        console.log(`Message received ${data.username}`);
+        const div = document.createElement('div');
         const br = document.createElement('br');
 
-        p.innerHTML = data.message;
-        document.querySelector('#display-messages-section').append(p);
+        div.classList.add('msg');
+        div.innerHTML = data.message;
+
+        if(username != data.username){
+            div.classList.add('msg-diff');
+        }
+
+        document.querySelector('#display-messages-section').append(div);
     });
 
     document.querySelector('#send-message').onclick = () => {

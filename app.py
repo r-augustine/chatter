@@ -76,11 +76,19 @@ def connect():
     else:
         return False  # not allowed here
 
+@socketio.on('disconnect')
+def disconnect():
+    if current_user.is_authenticated:
+        send({'message': '{0} has left'.format(current_user.name)},
+             broadcast=True, include_self=False)
+    else:
+        return False  # not allowed here
+
 # Handle socket events
 @socketio.on('message')
 def message(data):
     print(f'\n\n{data}\n\n')
-    send({'message': '{0}'.format(data['message'])}, broadcast=True)
+    send({'message': '{0}'.format(data['message']), 'username': current_user.name}, broadcast=True)
 
 # @socketio.on('join')
 # def on_join(data):
