@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, flash
 from wtform_fields import *
 from passlib.hash import pbkdf2_sha256
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
@@ -32,6 +32,7 @@ def index():
     if current_user.is_authenticated:
         user = current_user.name
         return render_template('index.html', user=user)
+    flash('Please login', 'danger')
     return redirect('/login')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -55,6 +56,7 @@ def chat():
 @app.route('/logout', methods=['GET'])
 def logout():
     logout_user()
+    flash('You have logged out successfully!', 'success')
     return redirect('/')
 
 if __name__ == "__main__":
