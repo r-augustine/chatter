@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
+from passlib.hash import pbkdf2_sha256
 from app import User
 
 class LoginForm(FlaskForm):
@@ -27,7 +28,8 @@ class LoginForm(FlaskForm):
 
         # Check if username is valid
         user = User.query.filter_by(name=username).first()
+        
         if user == None:
             raise ValidationError('Username or password is incorrect')
-        elif password != user.password:
+        elif not pbkdf2_sha256.verify(password, user.password):
             raise ValidationError('Username or password is incorrect')

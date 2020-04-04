@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for
 from wtform_fields import *
-#from models import *
+from passlib.hash import pbkdf2_sha256
 
 from flask_sqlalchemy import SQLAlchemy
 
