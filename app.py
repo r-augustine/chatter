@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from wtform_fields import *
 
 app = Flask(__name__)
 app.secret_key = 'replace later!'
@@ -9,7 +10,10 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+
+    login_form = LoginForm()
+
+    return render_template('login.html', form=login_form)
 
 
 if __name__ == "__main__":
